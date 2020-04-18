@@ -15,17 +15,17 @@ class Board extends Component{
             difficulty: 'easy'
         };
         this.handleChange = this.handleChange.bind(this);
-        this.newGame = this.newGame.bind(this);
+        //this.newGame = this.newGame.bind(this);
     }
 
-    /*async componentDidMount(){
+    async componentDidMount(){
         const response = await fetch(API+'easy');
         const data = await response.json();
         this.setState({board: data.board, isLoading: false});
         console.log(this.state.board);
-    }*/
+    }
 
-    async newGame(){
+    /*async newGame(){
         this.newGame.preventDefault();
         
         const response = await fetch(API+this.state.difficulty);
@@ -35,7 +35,7 @@ class Board extends Component{
             active: !state.active
         }));
         console.log(this.state.board);
-    }
+    }*/
 
     handleChange(event) {
         this.setState({
@@ -48,61 +48,19 @@ class Board extends Component{
     }
 
     render(){
-        const {board, isLoading, active} = this.state;
+        const {board, isLoading} = this.state;
         if(isLoading)
         {
             return(
             <div className="Content"> 
                 <p className="loading">Loading...</p>
-                <div className="newGameContainer">
-                <form onSubmit={this.newGame}>
-                    <div className="form-check">
-                        <label>
-                        <input
-                            type="radio"
-                            value="easy"
-                            checked={this.state.difficulty === 'easy'}
-                            onChange={this.handleChange}
-                        />
-                            Easy
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <label>
-                        <input
-                            type="radio"
-                            value="medium"
-                            checked={this.state.difficulty === 'medium'}
-                            onChange={this.handleChange}
-                        />
-                            Medium
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <label>
-                        <input
-                            type="radio"
-                            value="hard"
-                            checked={this.state.difficulty === 'hard'}
-                            onChange={this.handleChange}
-                        />
-                            Hard
-                        </label>
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary mt-2" type="submit">
-                            New Game
-                        </button>
-                    </div>
-                </form>
             </div>
-        </div>
             );
         }
         return (
             <div className="Content">
                 <p>{this.state.difficulty}</p>
-                {active ? <div className="boardContainer">
+                <div className="boardContainer">
                     {this.renderRow( board[0])}
                     {this.renderRow( board[1])}
                     {this.renderRow( board[2])}
@@ -113,7 +71,7 @@ class Board extends Component{
                     {this.renderRow( board[7])}
                     {this.renderRow( board[8])}
                     <br/>
-                </div> : null}
+                </div>
                 <div className="newGameContainer">
                     <form onSubmit={this.newGame}>
                         <div className="form-check">
