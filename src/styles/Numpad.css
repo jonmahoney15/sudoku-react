@@ -1,0 +1,23 @@
+.NumPad{
+    font-size: 40px;
+    margin: 0 auto;
+    position: absolute;
+    top: 200px;
+    right: 100px;
+    border: 1px black solid;
+    border-radius: 5px;
+    background: #4bc965;
+    padding:5px;
+    color: white;
+}
+button {
+    font-size: 40px;
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+}
+.remove-button{
+    height: 50px;
+    width: 150px;
+}
+

@@ -1,0 +1,15 @@
+.Row:nth-child(1) .Square{
+    border-top: 4px solid black;
+}
+
+.Row:nth-child(3) .Square{
+    border-bottom: 3px solid black;
+}
+
+.Row:nth-child(6) .Square{
+    border-bottom: 3px solid black;
+}
+
+.Row:nth-child(9) .Square{
+    border-bottom: 4px solid black;
+}

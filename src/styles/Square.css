@@ -1,0 +1,33 @@
+.Square{
+    display: inline-block;
+    border: 1px solid black;
+    margin: 0 auto;
+    font-size: 45px;
+    width: 50px;
+    height: 50px;
+    vertical-align: top;
+    background: white;
+}
+.Square:hover{
+    background: lightgreen;
+}
+.Active {
+    background: lightgreen;
+}
+
+.Square:nth-child(1){
+    border-left: 4px solid black;
+}
+
+.Square:nth-child(3){
+    border-right: 3px solid black;
+}
+
+.Square:nth-child(6){
+    border-right: 3px solid black;
+}
+
+.Square:last-child{
+    border-right: 4px solid black;
+}
+
