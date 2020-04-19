@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactToPrint from 'react-to-print';
 import Row from './row';
 import "../styles/Board.css";
 
@@ -15,32 +16,40 @@ class Board extends Component{
             difficulty: 'easy'
         };
         this.handleChange = this.handleChange.bind(this);
-        //this.newGame = this.newGame.bind(this);
+        this.newGame = this.newGame.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     async componentDidMount(){
-        const response = await fetch(API+'easy');
+        this.newGame();
+    }
+
+    async newGame(){
+        const {difficulty} = this.state;
+        console.log(API+difficulty);
+        const response = await fetch(API+difficulty);
+        console.log(response);
         const data = await response.json();
         this.setState({board: data.board, isLoading: false});
         console.log(this.state.board);
     }
 
-    /*async newGame(){
-        this.newGame.preventDefault();
-        
-        const response = await fetch(API+this.state.difficulty);
-        const data = await response.json();
-        this.setState({board: data.board, isLoading: false});
-        this.setState(state => ({
-            active: !state.active
-        }));
-        console.log(this.state.board);
-    }*/
+    handleSubmit(event)
+    {
+        event.preventDefault();
+        this.setState({isLoading: true});
+        this.newGame();
+    }
 
     handleChange(event) {
         this.setState({
           difficulty: event.target.value
         });
+    }
+
+    capitilizeFirst(string) 
+    {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     renderRow(board){
@@ -59,8 +68,20 @@ class Board extends Component{
         }
         return (
             <div className="Content">
-                <p>{this.state.difficulty}</p>
-                <div className="boardContainer">
+                <div className="Instructions">
+                    <h3>Instructions: </h3>
+                    <p>To input a number click the square. <br/> 
+                    Then a number pad will appear on the right. Please make a selection. 
+                    The pad will go away and the selection will appear in the square. 
+                    <br/> New Game: Make a selection in the bottom box and hit 'New Game' for a game of that difficulty to be created.
+                    </p>
+                </div>
+                <ReactToPrint
+                    trigger={() => <button className='print'>Print board!</button>}
+                    content={() => this.componentRef}
+                />
+                <p>Difficulty: {this.capitilizeFirst(this.state.difficulty)}</p>
+                <div className="boardContainer" ref={el => (this.componentRef = el)}>
                     {this.renderRow( board[0])}
                     {this.renderRow( board[1])}
                     {this.renderRow( board[2])}
@@ -73,7 +94,8 @@ class Board extends Component{
                     <br/>
                 </div>
                 <div className="newGameContainer">
-                    <form onSubmit={this.newGame}>
+                    <h3>Select a New Game: </h3>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="form-check">
                             <label>
                             <input
@@ -108,8 +130,8 @@ class Board extends Component{
                             </label>
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-primary mt-2" type="submit">
-                                New Game
+                            <button className="new-game" type="submit" value="Submit">
+                                Submit
                             </button>
                         </div>
                     </form>

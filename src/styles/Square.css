@@ -10,9 +10,11 @@
 }
 .Square:hover{
     background: lightgreen;
+    color: white;
 }
 .Active {
     background: lightgreen;
+    color: white;
 }
 
 .Square:nth-child(1){
