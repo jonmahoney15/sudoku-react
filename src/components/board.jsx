@@ -70,11 +70,16 @@ class Board extends Component{
             <div className="Content">
                 <div className="Instructions">
                     <h3>Instructions: </h3>
-                    <p>To input a number click the square. <br/> 
-                    Then a number pad will appear on the right. Please make a selection. 
-                    The pad will go away and the selection will appear in the square. 
-                    <br/> New Game: Make a selection in the bottom box and hit 'New Game' for a game of that difficulty to be created.
-                    </p>
+                    <ul>
+                        <li>Play: To input a number click the square. 
+                            Please make a selection. 
+                            The pad will go away and the selection will appear in the square
+                        </li>
+                        <br/>
+                        <li>New Game: 
+                            Make a selection in the bottom box and hit 'New Game' for a game of that difficulty to be created.
+                        </li>
+                    </ul>
                 </div>
                 <ReactToPrint
                     trigger={() => <button className='print'>Print board!</button>}
