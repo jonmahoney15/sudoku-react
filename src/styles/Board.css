@@ -47,7 +47,7 @@
 .print{
     margin: 5px auto;
     position: absolute;
-    left: 45px;
+    right: 45px;
     width: 300px;
     bottom: 0px;
 }
