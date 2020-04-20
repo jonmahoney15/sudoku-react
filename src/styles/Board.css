@@ -30,7 +30,7 @@
 }
 .Instructions{
     background: #4bc965;
-    width: calc(30%);
+    width: calc(25%);
     border-radius: 10px;
     color: white;
     font-size: 25px;
@@ -49,5 +49,5 @@
     position: absolute;
     left: 45px;
     width: 300px;
-    bottom: 50px;
+    bottom: 0px;
 }
