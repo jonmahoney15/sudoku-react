@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import ReactToPrint from 'react-to-print';
 import Row from './row';
+import Instructions from "./instructions";
 import "../styles/Board.css";
 
-
-const API = 'http://sugoku.herokuapp.com/board?difficulty=';
+const API = 'https://sugoku.herokuapp.com/board?difficulty=';
 
 class Board extends Component{
     constructor(props){
@@ -12,29 +13,32 @@ class Board extends Component{
             board : [],
             isLoading: true,
             active: false,
-            difficulty: 'easy'
+            difficulty: 'easy',
         };
         this.handleChange = this.handleChange.bind(this);
         this.newGame = this.newGame.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    /*async componentDidMount(){
-        const response = await fetch(API+'easy');
-        const data = await response.json();
-        this.setState({board: data.board, isLoading: false});
-        console.log(this.state.board);
-    }*/
+    async componentDidMount(){
+        this.newGame();
+    }
 
     async newGame(){
-        this.newGame.preventDefault();
-        
-        const response = await fetch(API+this.state.difficulty);
+        const {difficulty} = this.state;
+        console.log(API+difficulty);
+        const response = await fetch(API+difficulty);
+        console.log(response);
         const data = await response.json();
         this.setState({board: data.board, isLoading: false});
-        this.setState(state => ({
-            active: !state.active
-        }));
         console.log(this.state.board);
+    }
+
+    handleSubmit(event)
+    {
+        event.preventDefault();
+        this.setState({isLoading: true});
+        this.newGame();
     }
 
     handleChange(event) {
@@ -43,66 +47,30 @@ class Board extends Component{
         });
     }
 
+    capitilizeFirst(string) 
+    {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     renderRow(board){
         return <Row boardRow={board}/>;
     }
 
     render(){
-        const {board, isLoading, active} = this.state;
+        const {board, isLoading} = this.state;
         if(isLoading)
         {
             return(
             <div className="Content"> 
                 <p className="loading">Loading...</p>
-                <div className="newGameContainer">
-                <form onSubmit={this.newGame}>
-                    <div className="form-check">
-                        <label>
-                        <input
-                            type="radio"
-                            value="easy"
-                            checked={this.state.difficulty === 'easy'}
-                            onChange={this.handleChange}
-                        />
-                            Easy
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <label>
-                        <input
-                            type="radio"
-                            value="medium"
-                            checked={this.state.difficulty === 'medium'}
-                            onChange={this.handleChange}
-                        />
-                            Medium
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <label>
-                        <input
-                            type="radio"
-                            value="hard"
-                            checked={this.state.difficulty === 'hard'}
-                            onChange={this.handleChange}
-                        />
-                            Hard
-                        </label>
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary mt-2" type="submit">
-                            New Game
-                        </button>
-                    </div>
-                </form>
             </div>
-        </div>
             );
         }
         return (
             <div className="Content">
-                <p>{this.state.difficulty}</p>
-                {active ? <div className="boardContainer">
+                <Instructions/>
+                <p>Difficulty: {this.capitilizeFirst(this.state.difficulty)}</p>
+                <div className="boardContainer" ref={el => (this.componentRef = el)}>
                     {this.renderRow( board[0])}
                     {this.renderRow( board[1])}
                     {this.renderRow( board[2])}
@@ -113,9 +81,10 @@ class Board extends Component{
                     {this.renderRow( board[7])}
                     {this.renderRow( board[8])}
                     <br/>
-                </div> : null}
+                </div>
                 <div className="newGameContainer">
-                    <form onSubmit={this.newGame}>
+                    <h3>Select a New Game: </h3>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="form-check">
                             <label>
                             <input
@@ -150,12 +119,16 @@ class Board extends Component{
                             </label>
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-primary mt-2" type="submit">
-                                New Game
+                            <button className="new-game" type="submit" value="Submit">
+                                Submit
                             </button>
                         </div>
                     </form>
                 </div>
+                <ReactToPrint
+                    trigger={() => <button className='print'>Print board!</button>}
+                    content={() => this.componentRef}
+                />
             </div>
         );
         

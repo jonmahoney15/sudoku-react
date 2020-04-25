@@ -1,10 +1,105 @@
-.boardContainer{
-    margin-top: 50px;
-}
-.Content button:last-child{
+.Content .new-game{
     text-align: center;
     font-size: 40px;
     height: 50px;
     width: 250px;
     border-radius: 5px;
+}
+.Content p{
+    font-size: 25px;
+    margin: 20px auto;
+}
+.newGameContainer{
+    background: #4bc965;
+    width: calc(30%);
+    border-radius: 10px;
+    padding: 0px 0px 8px 0px;
+    margin: 0 auto;
+    color: white;
+}
+.newGameContainer h3{
+    margin: 0 auto;
+    text-decoration: underline;
+}
+.form-check{
+    display: inline;
+    padding: 5px;
+}
+
+.form-check label{
+    font-size: 25px;
+}
+
+.Instructions{
+    background: #4bc965;
+    width: calc(5%);
+    height: 65vh;
+    min-height: 475px;
+    border-radius: 0px 10px 10px 0px;
+    color: white;
+    font-size: 25px;
+    position: absolute;
+    left: 0px;
+    top: 205px;
+    list-style-type: circle;
+    margin-right: 5px;
+    transition: width 2s ease-in;
+}
+
+.Instructions h3{
+    margin-bottom: 5px;
+    text-decoration: underline;
+    top: 250px;
+    transition: transform 1.5s ease-in, top 2s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.Open{
+    visibility: visible;
+    width: calc(25%);
+    
+}
+
+.instructList{
+    padding-right: 5px;
+    animation: fadeIn 7s;
+}
+
+.print{
+    min-width: 275px;
+    min-height: 20px;
+    position: relative;
+    right: 0px;
+    bottom: 0px;
+    margin: 5px;
+    width: 25%;
+    background: #4bc965;
+    color: white;
+}
+    
+.rotate{
+    position: relative;
+    top: 250px;
+    left: 0px;
+    margin-left: 0;
+    transform: rotate(-90deg);
+    /* Legacy vendor prefixes that you probably don't need... */
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
