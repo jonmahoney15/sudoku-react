@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import ReactToPrint from 'react-to-print';
 import Row from './row';
+import Instructions from "./instructions";
 import "../styles/Board.css";
 
-
-const API = 'http://sugoku.herokuapp.com/board?difficulty=';
+const API = 'https://sugoku.herokuapp.com/board?difficulty=';
 
 class Board extends Component{
     constructor(props){
@@ -13,7 +13,7 @@ class Board extends Component{
             board : [],
             isLoading: true,
             active: false,
-            difficulty: 'easy'
+            difficulty: 'easy',
         };
         this.handleChange = this.handleChange.bind(this);
         this.newGame = this.newGame.bind(this);
@@ -68,23 +68,7 @@ class Board extends Component{
         }
         return (
             <div className="Content">
-                <div className="Instructions">
-                    <h3>Instructions: </h3>
-                    <ul>
-                        <li>Play: To input a number click the square. 
-                            Please make a selection. 
-                            The pad will go away and the selection will appear in the square
-                        </li>
-                        <br/>
-                        <li>New Game: 
-                            Make a selection in the bottom box and hit 'New Game' for a game of that difficulty to be created.
-                        </li>
-                    </ul>
-                </div>
-                <ReactToPrint
-                    trigger={() => <button className='print'>Print board!</button>}
-                    content={() => this.componentRef}
-                />
+                <Instructions/>
                 <p>Difficulty: {this.capitilizeFirst(this.state.difficulty)}</p>
                 <div className="boardContainer" ref={el => (this.componentRef = el)}>
                     {this.renderRow( board[0])}
@@ -141,6 +125,10 @@ class Board extends Component{
                         </div>
                     </form>
                 </div>
+                <ReactToPrint
+                    trigger={() => <button className='print'>Print board!</button>}
+                    content={() => this.componentRef}
+                />
             </div>
         );
         
