@@ -29,7 +29,7 @@ class Instructions extends Component{
                             </li>
                             <br/>
                             <li>New Game: 
-                                Make a selection in the bottom box and hit 'New Game' for a game of that difficulty to be created.
+                                Make a selection in the bottom box and hit 'Submit' for a game of that difficulty to be created.
                             </li>
                         </ul> 
                     </div> 

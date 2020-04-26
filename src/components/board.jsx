@@ -13,7 +13,8 @@ class Board extends Component{
             board : [],
             isLoading: true,
             active: false,
-            difficulty: 'easy',
+            difficulty: '',
+            submitHit: true,
         };
         this.handleChange = this.handleChange.bind(this);
         this.newGame = this.newGame.bind(this);
@@ -37,13 +38,17 @@ class Board extends Component{
     handleSubmit(event)
     {
         event.preventDefault();
-        this.setState({isLoading: true});
+        this.setState({
+            isLoading: true, 
+            submitHit: true,
+        });
         this.newGame();
     }
 
     handleChange(event) {
         this.setState({
-          difficulty: event.target.value
+          difficulty: event.target.value,
+          submitHit: false,
         });
     }
 
@@ -57,7 +62,7 @@ class Board extends Component{
     }
 
     render(){
-        const {board, isLoading} = this.state;
+        const {board, isLoading, submitHit} = this.state;
         if(isLoading)
         {
             return(
@@ -69,19 +74,21 @@ class Board extends Component{
         return (
             <div className="Content">
                 <Instructions/>
-                <p>Difficulty: {this.capitilizeFirst(this.state.difficulty)}</p>
-                <div className="boardContainer" ref={el => (this.componentRef = el)}>
-                    {this.renderRow( board[0])}
-                    {this.renderRow( board[1])}
-                    {this.renderRow( board[2])}
-                    {this.renderRow( board[3])}
-                    {this.renderRow( board[4])}
-                    {this.renderRow( board[5])}
-                    {this.renderRow( board[6])}
-                    {this.renderRow( board[7])}
-                    {this.renderRow( board[8])}
-                    <br/>
-                </div>
+                <p>{submitHit ? "Difficulty: " + this.capitilizeFirst(this.state.difficulty) : "You need to press Submit"}</p>
+                {submitHit ? 
+                    <div className="boardContainer" ref={el => (this.componentRef = el)}>
+                        {this.renderRow( board[0])}
+                        {this.renderRow( board[1])}
+                        {this.renderRow( board[2])}
+                        {this.renderRow( board[3])}
+                        {this.renderRow( board[4])}
+                        {this.renderRow( board[5])}
+                        {this.renderRow( board[6])}
+                        {this.renderRow( board[7])}
+                        {this.renderRow( board[8])}
+                        <br/>
+                    </div>
+                : null}
                 <div className="newGameContainer">
                     <h3>Select a New Game: </h3>
                     <form onSubmit={this.handleSubmit}>
@@ -125,10 +132,12 @@ class Board extends Component{
                         </div>
                     </form>
                 </div>
+                {submitHit ? 
                 <ReactToPrint
                     trigger={() => <button className='print'>Print board!</button>}
                     content={() => this.componentRef}
                 />
+                : null}
             </div>
         );
         

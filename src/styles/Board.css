@@ -53,15 +53,6 @@
     transition: transform 1.5s ease-in, top 2s ease;
 }
 
-@keyframes fadeIn{
-    from{
-        opacity: 0;
-    }
-    to{
-        opacity: 1;
-    }
-}
-
 .Open{
     visibility: visible;
     width: calc(25%);
@@ -70,7 +61,16 @@
 
 .instructList{
     padding-right: 5px;
-    animation: fadeIn 7s;
+    animation: 7s ease-in fadeIn;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }
 
 .print{
