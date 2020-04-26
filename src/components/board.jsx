@@ -14,7 +14,7 @@ class Board extends Component{
             isLoading: true,
             active: false,
             difficulty: '',
-            submitHit: true,
+            submitHit: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.newGame = this.newGame.bind(this);
